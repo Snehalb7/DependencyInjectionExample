@@ -1,4 +1,7 @@
+using DependencyInjectionExample.Data;
 using DependencyInjectionExample.Repository;
+using DependencyInjectionExample.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,21 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IGreetingTransientService, GreetingsTransientService>();
 builder.Services.AddScoped<IGreetingScoped,GreetingScopedService>();
 builder.Services.AddSingleton<IGreetingSingleton, GreetingSingletonService>();
+
+
+// EF Core
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProductsDB")));
+
+// Repository Pattern
+//builder.Services.AddTransient<IGreetingTransientService, ProductService>();
+
+
+
+builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IGreetingTransientService, GreetingsTransientService>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
