@@ -30,5 +30,12 @@ namespace DependencyInjectionExample.Controllers
             await _productService.AddProduct(product);
             return Ok(product);
         }
+
+        [HttpGet]
+        [Route("TestCutomMiddleware")]
+        public IActionResult TestMiddleware()
+        {
+            throw new Exception("This is a test exception from the ProductsController.");
+        }
     }
 }

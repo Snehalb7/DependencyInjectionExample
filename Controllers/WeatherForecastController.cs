@@ -29,5 +29,12 @@ namespace DependencyInjectionExample.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet]
+        [Route("TestCustomMiddleware")]
+        public IActionResult TestMiddleware1()
+        {
+            throw new Exception("This is a test exception from the WeatherForecastController.");
+        }
     }
 }

@@ -1,3 +1,4 @@
+using DependencyInjectionExample.CustomMiddleware;
 using DependencyInjectionExample.Data;
 using DependencyInjectionExample.Repository;
 using DependencyInjectionExample.Services;
@@ -21,7 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 //builder.Services.AddTransient<IGreetingTransientService, ProductService>();
 
 
-
+// Dependency Injection for Services and Repositories
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IGreetingTransientService, GreetingsTransientService>();
@@ -44,6 +45,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+//Custom Middleware
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 
