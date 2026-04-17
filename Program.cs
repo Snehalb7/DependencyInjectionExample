@@ -41,7 +41,27 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+//app.Use(async (context, next) =>  //app.Use() we can add middleware into the pipeline, and the next parameter is a delegate that represents the next middleware in the pipeline
+//{
+//    Console.WriteLine("Use Middleware-Before");
+//    await next();//pass control to the next middleware in the pipeline
+//    Console.WriteLine("Use Middleware-After");
+//});
 
+//app.Run(async context =>
+//{
+//    await context.Response.WriteAsync("Pipeline ended!");
+//});
+
+app.Map("/admin",adminApp =>
+{
+    adminApp.Run(async (context) =>
+    {
+
+        await context.Response.WriteAsync("Admin Page");
+
+    });
+});
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
